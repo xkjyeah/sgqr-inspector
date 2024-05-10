@@ -161,7 +161,7 @@ export const EMVCoMPMContext: InterpretationContext = {
     '01': {
       description: 'Point of initiation',
       interpreter: (n) => ({
-        '11': 'Static -- can be used on multiple transactions',
+        '11': 'Static -- can be used for multiple transactions',
         '12': 'Dynamic -- to be used for a single transaction',
       })[n] || UNKNOWN
     },

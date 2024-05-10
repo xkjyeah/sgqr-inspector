@@ -117,12 +117,8 @@ function App() {
       const canvas = canvasRef.current.getContext('2d')
 
       if (!canvas) return
-      // loadingMessage.hidden = true;
-      // canvasElement.hidden = false;
-      // outputContainer.hidden = false;
-
-      // canvasRef.current.height = video.videoHeight;
-      // canvasRef.current.width = video.videoWidth;
+      canvasRef.current.height = ve.videoHeight;
+      canvasRef.current.width = ve.videoWidth;
       canvas.drawImage(ve, 0, 0, canvasRef.current.width, canvasRef.current.height);
       const imageData = canvas.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height);
       const code = jsQR(imageData.data, imageData.width, imageData.height, {
@@ -131,13 +127,7 @@ function App() {
       if (code) {
         setData(code.data)
         stopCapture()
-        //   drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
-        // drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
-        // drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
-        // drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
-        // outputMessage.hidden = true;
-        // outputData.parentElement.hidden = false;
-        // outputData.innerText = code.data;
+        // TODO: read additional codes
       }
     }
     requestAnimationFrame(tick);
