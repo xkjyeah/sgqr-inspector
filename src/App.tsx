@@ -2,7 +2,7 @@ import React, { useCallback, useState, useRef } from 'react'
 import './App.css'
 import jsQR from 'jsqr'
 import { UNKNOWN, ParseError, parseData, EMVCoMPMContext } from './EMVCoMPMContext'
-import type { ParseResult } from './EMVCoMPMContext'
+import type { Interpretation, ParseResult } from './EMVCoMPMContext'
 import { createPortal } from 'react-dom'
 
 function renderDescription(s: string | typeof UNKNOWN): React.ReactNode {
@@ -13,11 +13,13 @@ function renderDescription(s: string | typeof UNKNOWN): React.ReactNode {
   }
 }
 
-function renderInterpretation(s: string | ParseResult | null) {
+function renderInterpretation(s: Interpretation | null) {
   if (typeof s === 'string') {
     return s
   } else if (s === null) {
     return null
+  } else if (s === UNKNOWN) {
+    return <em>Unknown</em>
   } else {
     return renderParseResult(s)
   }
