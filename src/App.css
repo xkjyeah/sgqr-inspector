@@ -5,6 +5,17 @@
   text-align: center;
 }
 
+table {
+  border-collapse: collapse;
+}
+
+td {
+  text-align: left;
+  vertical-align: top;
+  border: solid 1px #666;
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -26,4 +37,16 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.canvas-portal {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
