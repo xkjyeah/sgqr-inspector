@@ -1,0 +1,10 @@
+.compose-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.compose-list-item {
+  margin: 1em;
+  padding: 1em;
+  border: solid 1px black;
+}

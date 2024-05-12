@@ -20,7 +20,7 @@ class InvalidElementError extends ParseError {
   }
 }
 
-type ParsedElement = {
+export type ParsedElement = {
   elementID: string,
   length: number,
   rawValue: string,
