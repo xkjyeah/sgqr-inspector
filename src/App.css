@@ -9,10 +9,15 @@ table {
   border-collapse: collapse;
 }
 
-td {
+td,
+th {
   text-align: left;
   vertical-align: top;
   border: solid 1px #666;
+}
+
+td input {
+  font-size: 14px;
 }
 
 
@@ -49,4 +54,5 @@ td {
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 }
