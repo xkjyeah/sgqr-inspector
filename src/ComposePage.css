@@ -6,6 +6,17 @@
 .compose-list-item {
   margin: 1em 0;
   border: solid 1px light-dark(#333b3c, #efefec);
+
+  display: flex;
+  flex-direction: row;
+}
+
+.compose-list-item>.description {
+  flex: 1 0 auto;
+}
+
+.compose-list-item>.delete-button {
+  flex: 0 0 auto;
 }
 
 .compose-list-item>.compose-list-item-child {

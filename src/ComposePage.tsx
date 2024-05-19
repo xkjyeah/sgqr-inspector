@@ -68,12 +68,22 @@ function ComposePage(props: { pageData: ComposeState }) {
     })
   }, [pageData])
 
+  const handleDelete = (i: number) => () => {
+    appStateContext?.setPage({
+      id: 'compose',
+      data: {
+        ...pageData,
+        paymentMethods: props.pageData.paymentMethods.slice(0, i)
+          .concat(props.pageData.paymentMethods.slice(i + 1))
+      }
+    })
+  }
 
   return <div className="compose-list">
     <button onClick={() => {
       appStateContext?.setPage({
         id: 'interpret',
-        data: {}
+        data: { rawData: makeQRData(props.pageData.paymentMethods) }
       })
     }}>Back to interpretation</button>
     <DragSortableList onSwap={handleSwap}
@@ -82,9 +92,15 @@ function ComposePage(props: { pageData: ComposeState }) {
         <div key={index}
           className="compose-list-item"
         >
-          <b>{item.description}</b>
-          <br />
-          {item.protocol.toLowerCase()}
+          <div className="description">
+            <b>{item.description}</b>
+            <br />
+            {item.protocol.toLowerCase()}
+          </div>
+          <button className="delete-button"
+            onClick={handleDelete(index)}>
+            🗑
+          </button>
         </div>
       )
       }
@@ -157,21 +173,25 @@ const makePaymentMethodsMap = (i: PaymentMethod[]): Record<string, string> => {
   ] as Array<[string, string | undefined]>).filter((b): b is [string, string] => !!b[1]))
 }
 
-function EMVCoQRImage(props: { paymentMethods: PaymentMethod[] }): React.ReactNode {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+const makeQRData = (i: PaymentMethod[]): string => {
   const data = new QRData({
     // EMV-Co specs: https://www.emvco.com/specifications/emv-qr-code-specification-for-payment-systems-emv-qrcps-merchant-presented-mode/
     '00': '01', // Payload format indicator: Version we're using
     '01': '11', // Point of initiation method: 11 - static, 12 - dynamic
-    ...makePaymentMethodsMap(props.paymentMethods),
+    ...makePaymentMethodsMap(i),
     '52': '0000', // Merchant category code
     '53': '702', // ISO 4217 code for SGD
     '58': 'SG',
     '59': 'NA', // Merchant name -- doesn't matter because PayNow has its own lookup
     '60': 'Singapore', // City
   })
+  return data.toStringWithCRC()
+}
+
+function EMVCoQRImage(props: { paymentMethods: PaymentMethod[] }): React.ReactNode {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const [qrcodeDataURL, setQRCodeDataURL] = React.useState<string>('')
-  const newData = data.toStringWithCRC()
+  const newData = makeQRData(props.paymentMethods)
 
   // The first time we render, the canvas ref isn't there yet :|
   // So we need to render using an effect
