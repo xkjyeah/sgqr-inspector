@@ -74,7 +74,7 @@ export function ImageCapturer<R>(props: {
     {props.children({ captureImage, isCapturing, stopCapture })}
     <PopupSpace style={{ display: isCapturing ? undefined : 'none', textAlign: 'center' }}>
       <button onClick={stopCapture}>Stop Capture</button>
-      <canvas ref={canvasRef} width="500" height="500" style={{ height: 'auto', width: '100%', display: isCapturing ? 'block' : 'none' }}></canvas>
+      <canvas ref={canvasRef} width="500" height="500" style={{ height: 'auto', width: '100%', maxWidth: '500px', display: isCapturing ? 'block' : 'none' }}></canvas>
     </PopupSpace>
   </>
 }
