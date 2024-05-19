@@ -1,0 +1,9 @@
+.drag-sortable-dragging .drag-sortable-element:not(.drag-sortable-dragged) {
+  transition: top 0.1s ease-in-out;
+  top: 0;
+}
+
+.drag-sortable-element {
+  touch-action: none;
+  position: relative;
+}

@@ -4,7 +4,19 @@
 }
 
 .compose-list-item {
-  margin: 1em;
-  padding: 1em;
-  border: solid 1px black;
+  margin: 1em 0;
+  border: solid 1px light-dark(#333b3c, #efefec);
+}
+
+.compose-list-item>.compose-list-item-child {
+  margin: 0.5em 0.5em;
+}
+
+.compose-list-item.compose-list-item-drop-target {
+  padding-top: 3em;
+}
+
+.compose-list-item.compose-list-item-drag-source {
+  height: 1em;
+  visibility: hidden;
 }

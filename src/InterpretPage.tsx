@@ -113,8 +113,6 @@ function RenderData(props: { data: string | null }) {
 }
 
 function InterpretPage() {
-  // const [image, setImage] = useState(null)
-  // const [data, setData] = useState<string | null>('propertyvaluescanbespecifiedasasinglekeywordchosenfromthelist')
   const [data, setData] = useState<string | null>('00020101021126810011SG.COM.NETS01231198500065G9912312359000211111687665000308687665019908B97B381451830007SG.SGQR01121809112DFA9E020701.000103064088300402010502070607STALL 20708201809155204000053037025802SG5919THUNDERBOLT LEI CHA6009Singapore6304C17C')
 
   const interpretImage = useCallback((imageData: ReturnType<CanvasRenderingContext2D["getImageData"]>) => {
@@ -123,13 +121,17 @@ function InterpretPage() {
     });
   }, [])
 
+  const handleImageCaptured = useCallback((result: ReturnType<typeof jsQR>) => {
+    setData(result!.data)
+  }, [setData])
+
   const RImageCapturer = ImageCapturer<ReturnType<typeof jsQR>>
 
   return (
     <>
-      <RImageCapturer tester={interpretImage}>
+      <RImageCapturer tester={interpretImage} onImageCaptured={handleImageCaptured}>
         {({ captureImage, isCapturing, stopCapture }) => (<>
-          {!isCapturing && <button onClick={() => captureImage().then(r => setData(r!.data))}>Capture QR</button>}
+          {!isCapturing && <button onClick={captureImage}>Capture QR</button>}
           {isCapturing && <button onClick={stopCapture}>Stop Capture</button>}
         </>)}
       </RImageCapturer>

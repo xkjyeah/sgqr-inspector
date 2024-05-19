@@ -5,15 +5,17 @@ type ImageData = ReturnType<CanvasRenderingContext2D["getImageData"]>
 
 export function ImageCapturer<R>(props: {
   children: (props: {
-    captureImage: () => Promise<R>,
+    captureImage: () => void,
     stopCapture: () => void,
     isCapturing: boolean,
   }) => React.ReactNode,
-  tester: ((arg0: ImageData) => R)
+  tester: ((arg0: ImageData) => R),
+  onImageCaptured: ((arg0: R) => void)
 }) {
   const video = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const [isCapturing, setIsCapturing] = useState(false);
+  const { onImageCaptured, tester } = props
 
   const stopCapture = useCallback(() => {
     if (video.current) {
@@ -23,14 +25,6 @@ export function ImageCapturer<R>(props: {
     }
     setIsCapturing(false)
   }, [])
-
-  const [promiseResolvers, setPromiseResolvers] = useState<{
-    resolve: (a: R) => void,
-    reject: (e: Error) => void,
-  }>({
-    resolve: () => { },
-    reject: () => { },
-  });
 
   const tick = useCallback(() => {
     const ve = video.current
@@ -47,45 +41,37 @@ export function ImageCapturer<R>(props: {
       canvas.drawImage(ve, 0, 0, canvasRef.current.width, canvasRef.current.height);
       const imageData = canvas.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height);
 
-      const test = props.tester(imageData)
+      const test = tester(imageData)
       if (test) {
-        promiseResolvers.resolve(test)
+        onImageCaptured(test)
         stopCapture()
         return
       }
     }
     requestAnimationFrame(tick);
-  }, [promiseResolvers, props, stopCapture])
+  }, [onImageCaptured, tester, stopCapture])
 
   const captureImage = useCallback(() => {
-    return new Promise<R>((resolve, reject) => {
-      setPromiseResolvers({ resolve, reject })
-      if (!video.current) {
-        const newVideo = document.createElement("video")
+    if (!video.current) {
+      const newVideo = document.createElement("video")
 
-        // Use facingMode: environment to attempt to get the front camera on phones
-        navigator.mediaDevices
-          .getUserMedia({ video: { facingMode: "environment" } })
-          .then(function (stream) {
-            newVideo.srcObject = stream;
-            newVideo.setAttribute("playsinline", 'true'); // required to tell iOS safari we don't want fullscreen
-            newVideo.play();
-            requestAnimationFrame(tick);
-          });
+      // Use facingMode: environment to attempt to get the front camera on phones
+      navigator.mediaDevices
+        .getUserMedia({ video: { facingMode: "environment" } })
+        .then(function (stream) {
+          newVideo.srcObject = stream;
+          newVideo.setAttribute("playsinline", 'true'); // required to tell iOS safari we don't want fullscreen
+          newVideo.play();
+          requestAnimationFrame(tick);
+        });
 
-        video.current = newVideo
-      }
-      setIsCapturing(true)
-    })
+      video.current = newVideo
+    }
+    setIsCapturing(true)
   }, [tick])
 
-  const forceStopCapture = useCallback(() => {
-    promiseResolvers.reject(new Error('Force stopped'));
-    stopCapture()
-  }, [stopCapture, promiseResolvers])
-
   return <>
-    {props.children({ captureImage, isCapturing, stopCapture: forceStopCapture })}
+    {props.children({ captureImage, isCapturing, stopCapture })}
     <PopupSpace style={{ display: isCapturing ? undefined : 'none', textAlign: 'center' }}>
       <button onClick={stopCapture}>Stop Capture</button>
       <canvas ref={canvasRef} width="500" height="500" style={{ height: 'auto', width: '100%', display: isCapturing ? 'block' : 'none' }}></canvas>
