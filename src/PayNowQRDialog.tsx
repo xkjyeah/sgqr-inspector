@@ -54,11 +54,11 @@ export function PayNowQRDialog(props: {
   }, [type, destination])
 
 
-  const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleCancel = useCallback(() => {
     setIsOpen(false)
   }, [])
 
-  const handleConfirm = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleConfirm = useCallback(() => {
     onConfirm({
       rawData: new QRData({
         '00': 'SG.PAYNOW',
@@ -98,7 +98,7 @@ export function PayNowQRDialog(props: {
             {type === 'UEN' && <tr>
               <th>Payment reference</th>
               <td>
-                <input type="text" value={paymentReference} onInput={(e) => setPaymentReference(e.target.value)} />
+                <input type="text" value={paymentReference} onInput={(e: React.ChangeEvent<HTMLInputElement>) => setPaymentReference(e.target.value)} />
               </td>
             </tr>}
             <tr>
