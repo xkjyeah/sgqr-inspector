@@ -40,7 +40,7 @@ function EMVCoInterpretation(props: { data: string }) {
 
   return <>
     {renderParseResult(parseResult)}
-    {hasPaymentMethods && <button onClick={() => appStateContext!.setPage({
+    {hasPaymentMethods && <button style={{ width: '100%' }} onClick={() => appStateContext!.setPage({
       id: 'compose',
       data: {
         paymentMethods: extractPaymentMethodsFromParseResult(paymentMethodElements),
@@ -139,8 +139,8 @@ function InterpretPage({ rawData: data }: { rawData: string | null }) {
     <>
       <RImageCapturer tester={interpretImage} onImageCaptured={handleImageCaptured}>
         {({ captureImage, isCapturing, stopCapture }) => (<>
-          {!isCapturing && <button onClick={captureImage}>Capture QR</button>}
-          {isCapturing && <button onClick={stopCapture}>Stop Capture</button>}
+          {!isCapturing && <button style={{ width: '100%' }} onClick={captureImage}>Capture QR</button>}
+          {isCapturing && <button style={{ width: '100%' }} onClick={stopCapture}>Stop Capture</button>}
         </>)}
       </RImageCapturer>
       <RenderData data={data} />
