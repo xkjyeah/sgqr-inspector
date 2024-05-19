@@ -77,11 +77,11 @@ export function PayNowQRDialog(props: {
   return <>
     {props.children({ openDialog })}
     <PopupSpace style={{ display: isOpen ? undefined : 'none', textAlign: 'center' }}>
-      <div style={{ backgroundColor: "light-dark(white, black)", width: '100%', maxWidth: '500px', padding: '2em' }}>
+      <div style={{ backgroundColor: "Canvas", color: 'CanvasText', width: '100%', maxWidth: '500px', padding: '2em', boxSizing: 'border-box' }}>
         <table style={{ width: '100%' }}>
           <tbody>
             <tr>
-              <th style={{ textAlign: 'right' }}>PayNow number / UEN</th>
+              <th style={{ textAlign: 'right' }}>Phone number / UEN</th>
               <td>
                 <input type="text" value={destination} onInput={handleInput} ref={inputRef} style={{ textTransform: 'uppercase', width: '100%', boxSizing: 'border-box' }} />
               </td>
