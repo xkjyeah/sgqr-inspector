@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# SG QR Inspector!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+With this little app, you can:
 
-Currently, two official plugins are available:
+* Inspect any SG QR code
+* Combine multiple SG-QR codes into one
+* Add PayNow as an option to any SG-QR code.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This means that, with **one QR code**, you can offer any number of payment methods, like **NETS, PayNow, FavePay, GrabPay, ...**.
 
-## Expanding the ESLint configuration
+[Try it now!](https://xkjyeah.github.io/sgqr-inspector/).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+# Why this App?
 
-- Configure the top-level `parserOptions` property like this:
+Because PayNow is the better option (unless you have specific business needs):
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+![diagram showing NETS QR is only compatible with a few banks; but PayNow is compatible with all Singapore banks!](/docs/compatibility.png)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+NETS QRs are only compatible with a very limited number of banks in Singapore. However, PayNow is compatible with almost all banks in Singapore,
+plus some other apps like GrabPay and Google Pay.
+
+By adding PayNow support to your payment QR codes, you reach the widest audience, and will not exclude customers on smaller banks
