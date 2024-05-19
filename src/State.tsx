@@ -6,8 +6,9 @@ type Page<R, S> = {
   data: S
 }
 
-export type InterpretState = Record<string, never>
-
+export type InterpretState = {
+  rawData: string | null,
+}
 
 export type ComposeState = {
   paymentMethods: Array<PaymentMethod>

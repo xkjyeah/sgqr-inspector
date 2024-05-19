@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext } from 'react'
+import React, { Fragment, useCallback, useState, useContext } from 'react'
 import './App.css'
 import jsQR from 'jsqr'
 import { UNKNOWN, ParseError, parseData, EMVCoMPMContext } from './EMVCoMPMContext'
@@ -60,7 +60,7 @@ function renderParseResult(parseResult: ParseResult) {
         if (elem instanceof ParseError) {
           return (<tr key={index}><td colSpan={3}>{elem.message}</td></tr>)
         } else {
-          return (<>
+          return (<Fragment key={index}>
             <tr key={index + '._1'} className="group-start">
               <td>{elem.elementID}</td>
               <td>{renderDescription(elem.description)}</td>
@@ -74,7 +74,7 @@ function renderParseResult(parseResult: ParseResult) {
                 {renderInterpretation(elem.interpretation)}
               </td>
             </tr>}
-          </>)
+          </Fragment>)
         }
       })}
     </tbody>
@@ -112,8 +112,16 @@ function RenderData(props: { data: string | null }) {
   </>
 }
 
-function InterpretPage() {
-  const [data, setData] = useState<string | null>('00020101021126810011SG.COM.NETS01231198500065G9912312359000211111687665000308687665019908B97B381427530008com.grab0132312d0578749b4d2e89009e362bc39d6f0201228460010com.myfave0128https://myfave.com/qr/ejwnr55204000053037025802SG5902NA6009Singapore63042E15')
+function InterpretPage({ rawData: data }: { rawData: string | null }) {
+  const appStateContext = useContext(AppStateContext);
+  const setData = useCallback((data: string) => {
+    appStateContext?.setPage({
+      id: 'interpret',
+      data: {
+        rawData: data
+      }
+    })
+  }, [appStateContext])
 
   const interpretImage = useCallback((imageData: ReturnType<CanvasRenderingContext2D["getImageData"]>) => {
     return jsQR(imageData.data, imageData.width, imageData.height, {
