@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState, useContext } from 'react'
+import React, { Fragment, useCallback, useContext } from 'react'
 import './App.css'
 import jsQR from 'jsqr'
 import { UNKNOWN, ParseError, parseData, EMVCoMPMContext } from './EMVCoMPMContext'

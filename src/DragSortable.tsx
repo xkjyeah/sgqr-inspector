@@ -1,5 +1,5 @@
 import './DragSortable.css'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { range } from 'lodash'
 
 // Given a pageY, find the offsetY (ignore all offsets up to to's offsetParent)
@@ -45,7 +45,6 @@ const initializeDragSortData = (props: { draggedIndex: number, clickPageY: numbe
 
   const clickY = props.clickPageY
   const height = (offsetTops[draggedIndex + 1] ?? (parentElem.offsetTop + parentElem.offsetHeight)) - offsetTops[draggedIndex]
-  const oldLeft = target.style.left
   const oldTop = target.style.top
   const oldUserSelect = target.style.userSelect
 

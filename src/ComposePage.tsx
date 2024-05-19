@@ -128,7 +128,7 @@ class QRData {
   }
 
   toString(): string {
-    return sortBy(Object.entries(this.components), ([k, v]: [string, any]) => k)
+    return sortBy(Object.entries(this.components), ([k]: [string, any]) => k)
       .map(([key, comp]: [key: string, comp: QRDataComponentValue]) => {
         if (!key.match(/^[0-9]{2}$/)) {
           throw new Error("Key should be a 2-digit numeric key code")
