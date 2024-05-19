@@ -10,6 +10,17 @@ This means that, with **one QR code**, you can offer any number of payment metho
 
 [Try it now!](https://xkjyeah.github.io/sgqr-inspector/).
 
+# Screenshots
+
+### Inspecting a QR code
+<img src="/docs/inspect.png" alt="You can inspect any payment QR code" width="400" />
+
+### Adding PayNow to a QR code
+<table><tr><td>
+<img src="/docs/adding paynow.png" alt="You can inspect any payment QR code" width="300" />
+</td><td><img src="/docs/added paynow.png" alt="You can inspect any payment QR code" width="300" /></td></tr></table>
+
+
 # Why this App?
 
 Because PayNow is the better option (unless you have specific business needs):
