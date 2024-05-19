@@ -8,7 +8,7 @@ import { useState } from 'react'
 function renderPage(appState: AppState["page"]) {
   switch (appState.id) {
     case 'interpret':
-      return <InterpretPage pageData={appState.data} />
+      return <InterpretPage />
     case 'compose':
       return <ComposePage pageData={appState.data} />
   }

@@ -150,6 +150,17 @@ const SGQRContexts: Record<string, InterpretationContext> = {
       '07': { description: 'Revision date (YYYYMMDD)' },
     }
   },
+  'COM.MYFAVE': {
+    name: 'FavePay',
+    knownElements: {
+      '00': {
+        description: 'Payload format indicator',
+      },
+      '01': {
+        description: 'FavePay URL'
+      },
+    }
+  },
 }
 
 export const EMVCoMPMContext: InterpretationContext = {

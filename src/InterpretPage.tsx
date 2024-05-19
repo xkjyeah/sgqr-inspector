@@ -34,7 +34,7 @@ function EMVCoInterpretation(props: { data: string }) {
 
   const paymentMethodElements = parseResult.elements.filter((e): e is ParsedElement =>
     !(e instanceof ParseError) &&
-    e.elementID >= '26' && e.elementID < '51'
+    e.elementID >= '26' && e.elementID <= '51'
   )
   const hasPaymentMethods = paymentMethodElements.length > 0
 
@@ -113,7 +113,7 @@ function RenderData(props: { data: string | null }) {
 }
 
 function InterpretPage() {
-  const [data, setData] = useState<string | null>('00020101021126810011SG.COM.NETS01231198500065G9912312359000211111687665000308687665019908B97B381451830007SG.SGQR01121809112DFA9E020701.000103064088300402010502070607STALL 20708201809155204000053037025802SG5919THUNDERBOLT LEI CHA6009Singapore6304C17C')
+  const [data, setData] = useState<string | null>('00020101021126810011SG.COM.NETS01231198500065G9912312359000211111687665000308687665019908B97B381427530008com.grab0132312d0578749b4d2e89009e362bc39d6f0201228460010com.myfave0128https://myfave.com/qr/ejwnr55204000053037025802SG5902NA6009Singapore63042E15')
 
   const interpretImage = useCallback((imageData: ReturnType<CanvasRenderingContext2D["getImageData"]>) => {
     return jsQR(imageData.data, imageData.width, imageData.height, {
