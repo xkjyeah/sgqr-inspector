@@ -5,7 +5,7 @@ import type { ParsedElement } from './EMVCoMPMContext'
 import { EMVCoMPMContext, parseData, ParseError } from './EMVCoMPMContext'
 import jsQR from 'jsqr'
 import { PaymentMethod, extractPaymentMethodsFromParseResult } from './PaymentMethod'
-import React, { useContext, useCallback, useRef } from 'react'
+import React, { useContext, useCallback, useRef, useEffect } from 'react'
 import { uniqBy, sortBy } from 'lodash'
 import type { QRCode } from 'jsqr'
 import { DragSortableList } from './DragSortable'
@@ -170,29 +170,21 @@ function EMVCoQRImage(props: { paymentMethods: PaymentMethod[] }): React.ReactNo
     '59': 'NA', // Merchant name -- doesn't matter because PayNow has its own lookup
     '60': 'Singapore', // City
   })
+  const [qrcodeDataURL, setQRCodeDataURL] = React.useState<string>('')
+  const newData = data.toStringWithCRC()
 
-  let qrcodeDataURL: string = ''
+  // The first time we render, the canvas ref isn't there yet :|
+  // So we need to render using an effect
+  useEffect(() => {
+    if (canvasRef.current) {
+      const canvasElem = canvasRef.current
 
-  if (canvasRef.current) {
-    const canvasElem = canvasRef.current
-    // const context = canvasElem.getContext('2d')
-
-    qrcode.toCanvas(canvasElem, data.toStringWithCRC(), { errorCorrectionLevel: 'M', width: 1000, color: { dark: '#000000' } })
-
-    qrcodeDataURL = canvasElem.toDataURL()
-
-    // const logoElem = logoRef.value
-    // if (logoElem) {
-    //   const width = 1323, height = 894;
-    //   const targetWidth = 150, targetHeight = height / width * targetWidth
-    //   context!.fillStyle = 'white'
-    //   context!.fillRect(300 - targetWidth / 2, 300 - targetHeight / 2, targetWidth, targetHeight)
-    //   context!.drawImage(logoElem, 300 - targetWidth / 2, 300 - targetHeight / 2, targetWidth, targetHeight)
-
-    //   qrcodeDataURL.value = canvasElem.toDataURL()
-    //   qrcodeDataTarget.value = finalTarget
-    // }
-  }
+      qrcode.toCanvas(canvasElem, newData, { errorCorrectionLevel: 'M', width: 1000, color: { dark: '#000000' } })
+        .then(() => {
+          setQRCodeDataURL(canvasElem.toDataURL())
+        })
+    }
+  }, [newData])
 
   return (<>
     <canvas width="1000" height="1000" ref={canvasRef} style={{ display: 'none' }}></canvas>
