@@ -47,6 +47,26 @@ function EMVCoInterpretation(props: { data: string }) {
       }
     })}>Combine with other QRs</button>}
   </>
+}
+
+
+function URLInterpretation(props: { data: string }) {
+  let parsedData: URL | null = null;
+
+  try {
+    parsedData = new URL(props.data)
+  } catch (e) {
+    return null;
+  }
+
+  if (!parsedData) return;
+
+  return <>
+    <p><strong>You have scanned a URL!</strong></p>
+    <p>The website is hosted at <strong >{parsedData.protocol}://{parsedData.hostname}</strong>.</p>
+    <p>Please verify that the domain is expected before visiting the website.</p>
+    <p><a style={{ display: 'inline-block', margin: '0.8em', backgroundColor: '#DDD', borderRadius: '0.5em', padding: '0.8em', fontSize: '150%', fontWeight: 'bold' }} href={props.data}>➛ Go to site</a></p>
+  </>
 
 }
 
@@ -108,6 +128,7 @@ function RenderData(props: { data: string | null }) {
       Captured data:
     </div>
     <RawValue value={props.data}></RawValue>
+    <URLInterpretation data={props.data} />
     <EMVCoInterpretation data={props.data} />
   </>
 }
