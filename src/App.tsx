@@ -3,6 +3,7 @@ import { AppStateContext } from './State'
 import type { AppState } from './State'
 import InterpretPage from './InterpretPage'
 import ComposePage from './ComposePage'
+import LearnQRCodes from './LearnQRCodes'
 import { useState } from 'react'
 
 function renderPage(appState: AppState["page"]) {
@@ -11,6 +12,8 @@ function renderPage(appState: AppState["page"]) {
       return <InterpretPage rawData={appState.data.rawData} />
     case 'compose':
       return <ComposePage pageData={appState.data} />
+    case 'learn-qr-codes':
+      return <LearnQRCodes />
   }
 }
 

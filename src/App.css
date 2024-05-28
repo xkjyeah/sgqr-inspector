@@ -20,6 +20,10 @@ td input {
   font-size: 14px;
 }
 
+h4 {
+  margin: 0 auto;
+  text-align: left;
+}
 
 .logo {
   height: 6em;

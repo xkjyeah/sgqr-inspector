@@ -14,7 +14,11 @@ export type ComposeState = {
   paymentMethods: Array<PaymentMethod>
 }
 
-type AppPage = Page<'interpret', InterpretState> | Page<'compose', ComposeState>
+export type LearnQRCodesState = {
+  data: string,
+}
+
+type AppPage = Page<'interpret', InterpretState> | Page<'compose', ComposeState> | Page<'learn-qr-codes', LearnQRCodesState>
 
 export type AppState = {
   page: AppPage
