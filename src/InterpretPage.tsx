@@ -185,8 +185,8 @@ function InterpretPage({ rawData: data }: { rawData: string | null }) {
               For example scanning the following QR code yields the following details:
             </p>
             <p>
-              <img src="public/sample-qr.png" style={{ width: '40%', height: 'auto' }} />
-              <img src="public/captured-information.png" style={{ width: '40%', height: 'auto' }} />
+              <img src="sample-qr.png" style={{ width: '40%', height: 'auto' }} />
+              <img src="captured-information.png" style={{ width: '40%', height: 'auto' }} />
             </p>
           </section>
           <section>
@@ -203,9 +203,9 @@ function InterpretPage({ rawData: data }: { rawData: string | null }) {
               preferred priority order.
             </p>
             <p>
-              <img src="public/example-of-too-many.jpg" style={{ width: '40%', height: 'auto', verticalAlign: 'middle' }} />
+              <img src="example-of-too-many.jpg" style={{ width: '40%', height: 'auto', verticalAlign: 'middle' }} />
               {' '}→ becomes →{' '}
-              <img src="public/combine-qrs.jpg" style={{ maxHeight: '300px', maxWidth: '40%', verticalAlign: 'middle' }} />
+              <img src="combine-qrs.jpg" style={{ maxHeight: '300px', maxWidth: '40%', verticalAlign: 'middle' }} />
             </p>
             <p>
               So, if you've been trying to understand why certain QRs are not supported by your
