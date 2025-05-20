@@ -50,7 +50,7 @@ h4 {
 
 .canvas-portal {
   background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
