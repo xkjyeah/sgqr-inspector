@@ -189,7 +189,7 @@ function InterpretPage({ rawData: data }: { rawData: string | null }) {
               <img src="captured-information.png" style={{ width: '40%', height: 'auto' }} />
             </p>
           </section>
-          <section>
+          <section style={{ textAlign: 'left' }}>
             <Capture label="Try it now!" />
             <p>
               For example, it will tell you all the payment methods supported by
