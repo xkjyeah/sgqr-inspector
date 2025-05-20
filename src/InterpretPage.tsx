@@ -158,7 +158,7 @@ function InterpretPage({ rawData: data }: { rawData: string | null }) {
 
   const Capture = (props: { label: string }) => <>
     <RImageCapturer tester={interpretImage} onImageCaptured={handleImageCaptured}>
-      {({ captureImage, isCapturing, stopCapture }) => (<>
+      {({ captureImage }) => (<>
         {<button style={{ width: '100%' }} onClick={captureImage}>{props.label}</button>}
       </>)}
     </RImageCapturer>

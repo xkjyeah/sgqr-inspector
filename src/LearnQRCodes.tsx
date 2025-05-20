@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, Fragment, useCallback, useContext, useState } from 'react'
+import React, { useEffect, useRef, Fragment, useCallback, useState } from 'react'
 import './App.css'
-import jsQR, { QRCode } from 'jsqr'
-import { AppStateContext, LearnQRCodesState } from './State'
 import * as qrcode from 'qrcode'
 import { maxBy, range } from 'lodash'
 
@@ -214,7 +212,7 @@ function CompareQRsToy(props: { value: string, computedCode: qrcode.QRCode, onIm
     }
   }, [isAnimating])
 
-  const handleSelect = useCallback((e: React.SyntheticEvent) => {
+  const handleSelect = useCallback(() => {
     const ta = textAreaRef.current!
     const lower = Math.min(ta.selectionStart, ta.selectionEnd)
     const upper = Math.max(ta.selectionStart, ta.selectionEnd)
@@ -301,7 +299,7 @@ function CompareQRsToy(props: { value: string, computedCode: qrcode.QRCode, onIm
   </>
 }
 
-function LearnQRCodes(props: LearnQRCodesState) {
+function LearnQRCodes() {
   const [value, setValue] = React.useState('')
 
   return (
